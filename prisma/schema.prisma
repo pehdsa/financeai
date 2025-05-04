@@ -20,6 +20,7 @@ model Transaction {
   amount        Decimal @db.Decimal(10, 2)
   category      TransactionCategory
   paymentMethod TransactionPaymentMethod
+  userId        String
   date          DateTime
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -51,4 +52,14 @@ enum TransactionPaymentMethod {
   CASH
   PIX
   OTHER
+}
+
+model User {
+  id            String   @id @default(uuid())
+  firstName     String
+  lastName      String
+  email         String   @unique
+  clerkId       String   @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
