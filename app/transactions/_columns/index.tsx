@@ -5,6 +5,7 @@ import { Transaction } from "@prisma/client";
 import TransactionTypeBadge from "@/app/transactions/_components/type-badge"
 import { Button } from "@/app/_components/ui/button";
 import { TrashIcon, PencilIcon } from "lucide-react";
+import { EditTransactionButton } from "@/app/transactions/_components/edit-transaction-button"
 
 
 import {
@@ -57,11 +58,9 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "actions",
     header: "Ações",
-    cell: ({row}) => 
+    cell: ({row: { original: transaction }}) => 
       <div className="flex gap-2">
-        <Button variant="ghost" size="icon" className="text-muted-foreground">
-          <PencilIcon />
-        </Button>
+        <EditTransactionButton transaction={transaction} />
         <Button variant="ghost" size="icon" className="text-muted-foreground">
           <TrashIcon />
         </Button>
