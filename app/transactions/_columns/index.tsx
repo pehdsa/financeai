@@ -3,6 +3,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Transaction } from "@prisma/client";
 import TransactionTypeBadge from "@/app/transactions/_components/type-badge"
+import { Button } from "@/app/_components/ui/button";
+import { TrashIcon, PencilIcon } from "lucide-react";
 
 
 import {
@@ -36,13 +38,33 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "date",
     header: "Data",
+    cell: ({row: { original: transaction }}) => 
+      new Date(transaction.date).toLocaleString("pt-BR", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      })
   },
   {
     accessorKey: "amount",
-    header: "Valor"
+    header: "Valor",
+    cell: ({row: { original: transaction }}) => 
+      new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(Number(transaction.amount))
   },
   {
     accessorKey: "actions",
-    header: "",
+    header: "Ações",
+    cell: ({row}) => 
+      <div className="flex gap-2">
+        <Button variant="ghost" size="icon" className="text-muted-foreground">
+          <PencilIcon />
+        </Button>
+        <Button variant="ghost" size="icon" className="text-muted-foreground">
+          <TrashIcon />
+        </Button>
+      </div>
   },
 ]
