@@ -17,7 +17,9 @@ export const SummaryCard = ({ icon, title, amount, size = "small" }: SummaryCard
     return (
         <Card className={size === 'small' ? "" : "bg-[#161716]"}>
             <CardHeader className="flex items-center gap-4">
-                { icon }
+                <div className="size-10 bg-white/[3%] rounded-md flex items-center justify-center">
+                    { icon }
+                </div>
                 <p className={ size === "small" ? "text-muted-foreground" : "text-white opacity-70"}>{ title }</p>
             </CardHeader>
             <CardContent className="flex justify-between items-center">

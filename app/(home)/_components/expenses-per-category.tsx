@@ -22,6 +22,7 @@ export const ExpensesPerCategory = ({ expensesPerCategory }: ExpensesPerCategory
                 { expensesPerCategory.map((category) => (
                     <div key={category.category} className="space-y-4">
                         <div className="flex justify-between w-full">
+                            {/* @ts-ignore */}
                             <p className="text-sm font-bold">{ TRANSACTION_CATEGORY_LABELS[category.category] }</p>
                             <p className="text-sm font-bold">{ category.percentageOfTotal }%</p>
                         </div>

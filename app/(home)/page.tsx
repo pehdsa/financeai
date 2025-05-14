@@ -25,7 +25,8 @@ export default async function Home({ searchParams: { month } }: HomeProps) {
 
     const monthIsInvalid = !month || !isMatch(month, "MM");
     if (monthIsInvalid) {
-        redirect("/?month=01")
+        // redirect("/?month=01")
+        redirect(`/?month=${ String(new Date().getMonth() + 1).padStart(2, '0') }`);
     }
 
     const dashboard = await getDshboard(month);
@@ -33,18 +34,16 @@ export default async function Home({ searchParams: { month } }: HomeProps) {
     return (
         <>
         <NavBar />
-        <div className="p-6 space-y-6">
+        <div className="p-6 space-y-6 flex flex-col grow overflow-hidden">
             <div className="flex justify-between ">
                 <h1 className="text-2xl font-bold">Dashboard</h1>
                 <TimeSelect />
             </div>
-            <div className="grid grid-cols-3 gap-6">
-                <div className="col-span-2 space-y-6">
+            <div className="grid grid-cols-3 gap-6 grow-1">
+                <div className="col-span-2 space-y-6 flex flex-col">
                     <SummaryCards dashboard={ dashboard } />
-                    <div className="grid grid-cols-3 grid-rows-1 gap-6">
-                        <div>
-                            <TransactionsPieChart dashboard={ dashboard } />
-                        </div>
+                    <div className="grid grid-cols-3 grid-rows-1 gap-6 grow-1">                        
+                        <TransactionsPieChart dashboard={ dashboard } />                        
                         <ExpensesPerCategory expensesPerCategory={ dashboard.totalExpensePerCategory } />
                     </div>
                 </div>

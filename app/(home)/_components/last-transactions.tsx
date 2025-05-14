@@ -31,7 +31,7 @@ export const LastTransactions = ({ lastTransactions }: LastTransactionsProps) =>
     }
 
     return (
-        <ScrollArea className="rounded-md border py-6">
+        <ScrollArea className="rounded-md border py-6 min-h-full">
             <CardHeader className="flex items-center justify-between mb-4">
                 <CardTitle>Últimas Transações</CardTitle>
                 <Button variant="outline" className="rounded-full font-bold" asChild>

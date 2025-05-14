@@ -2,10 +2,17 @@
 import { db } from "@/app/_lib/prisma"
 import { TransactionType } from "@prisma/client"
 import { TransactionPercentagePerType, TotalExpensePerCategory } from "./types"
+import { auth } from '@clerk/nextjs/server'
 
 export const getDshboard = async (month: string) => {
 
+    const { userId } = await auth()
+    if (!userId) {
+        throw new Error("Unauthorized")
+    }
+
     const where = {
+        userId,
         date: {
             gte: new Date(`2025-${month}-01`),
             lt: new Date(`2025-${month}-31`),
@@ -62,11 +69,16 @@ export const getDshboard = async (month: string) => {
         )
     }))
 
-    const lastTransactions = await db.transaction.findMany({
-        where: { ...where },
-        orderBy: { date: "desc" },
-        take: 5
-    })
+    const lastTransactions = (
+        await db.transaction.findMany({
+            where: { ...where },
+            orderBy: { date: "desc" },
+            take: 5
+        })
+    ).map((transaction) => ({
+        ...transaction,
+        amount: Number(transaction.amount)
+    }))
 
     return {
         depositTotal,

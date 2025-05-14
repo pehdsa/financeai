@@ -63,11 +63,11 @@ export function TransactionsPieChart({ dashboard }: TransactionsPieChartProps) {
     ]
 
     return (
-        <Card className="flex flex-col p-12">
+        <Card className="flex flex-col p-4">
             <CardContent className="flex-1 pb-0">
                 <ChartContainer
-                config={chartConfig}
-                className="mx-auto aspect-square max-h-[250px]"
+                    config={chartConfig}
+                    className="mx-auto aspect-square max-h-[200px]"
                 >
                     <PieChart>
                         <ChartTooltip
