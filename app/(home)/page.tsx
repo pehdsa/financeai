@@ -8,6 +8,7 @@ import { isMatch } from "date-fns";
 import { getDshboard } from "@/app/_data/get-dashboard";
 import { ExpensesPerCategory } from "@/app/(home)/_components/expenses-per-category";
 import { LastTransactions } from "@/app/(home)/_components/last-transactions";
+import { AiReportButton } from "./_components/ia-reports-button";
 
 interface HomeProps {
   searchParams: Promise<{ month: string }>;
@@ -35,7 +36,10 @@ export default async function Home({ searchParams }: HomeProps) {
       <div className="p-6 space-y-6 flex flex-col grow overflow-hidden">
         <div className="flex justify-between ">
           <h1 className="text-2xl font-bold">Dashboard</h1>
-          <TimeSelect />
+          <div className="flex gap-3 items-center">
+            <AiReportButton month={month} />
+            <TimeSelect />
+          </div>
         </div>
         <div className="grid grid-cols-3 gap-6 grow-1">
           <div className="col-span-2 space-y-6 flex flex-col">
